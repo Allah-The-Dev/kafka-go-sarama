@@ -23,6 +23,7 @@ func consumeKafkaMessage() {
 	config := kafka.NewConfig()
 	config.Version = kafka.V2_6_0_0 // specify appropriate version
 	config.Consumer.Return.Errors = true
+	config.Consumer.Offsets.Initial = kafka.OffsetOldest
 
 	group, err := kafka.NewConsumerGroup([]string{kafkaConn}, consumerGroupName, config)
 	if err != nil {
