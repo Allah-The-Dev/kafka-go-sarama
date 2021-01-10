@@ -24,7 +24,7 @@ func consumeKafkaMessage() {
 	config.Version = kafka.V2_6_0_0 // specify appropriate version
 	config.Consumer.Return.Errors = true
 
-	group, err := kafka.NewConsumerGroup([]string{"172.18.104.177:9094"}, "my-group-1", config)
+	group, err := kafka.NewConsumerGroup([]string{kafkaConn}, consumerGroupName, config)
 	if err != nil {
 		panic(err)
 	}
@@ -40,7 +40,7 @@ func consumeKafkaMessage() {
 	// Iterate over consumer sessions.
 	ctx := context.Background()
 	for {
-		topics := []string{"messages"}
+		topics := []string{topic}
 		handler := exampleConsumerGroupHandler{}
 
 		// `Consume` should be called inside an infinite loop, when a
